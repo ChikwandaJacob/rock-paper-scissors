@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        //Array holding computers possible options to choose from.
+        let ComputerDecision = ["scissors", "paper", "rock"];
+        
+        //Variables to store play round records
+        let Player_Score = 0;
+        let Computer_Score = 0;
+        let Neutral_Score = 0;
+        //Function to help computer make decision
+        function computerPlay(){
+            let minimum_value = 0;
+            let maximum_value = 2;
+            let selection = Math.round(Math.random()*(maximum_value - minimum_value)+minimum_value);
+            return ComputerDecision[selection];
+        }
+        //Function to determine who wins aswell as record results
+        function playRound(ComputerSelection,PlayerSelection){
+            ComputerSelection = String(ComputerSelection);
+            PlayerSelection = String(PlayerSelection);
+            ComputerSelection.toLowerCase();
+            PlayerSelection.toLowerCase();
+            for(let i=0; i<3; i++){
+                if (ComputerSelection == ComputerDecision[i]){
+                    ComputerSelection = i;
+                    break;
+                }
+            }
+            for(let i=0; i<3; i++){
+                if (PlayerSelection == ComputerDecision[i]){
+                    PlayerSelection = i;
+                    break;
+                }
+            }
+            if(PlayerSelection == 0 && ComputerSelection == 1){
+                Player_Score++;
+            }
+            else if(PlayerSelection == 1 && ComputerSelection == 0){
+                Computer_Score++;
+            }
+            else if (PlayerSelection == 2 && ComputerSelection == 1){
+                Computer_Score++;
+            }
+            else if(PlayerSelection == 1 && ComputerSelection == 2){
+                Player_Score++;
+            }
+            else if(PlayerSelection == 0 && ComputerSelection == 2){
+                Computer_Score++;
+            }
+            else if(PlayerSelection == 2 && ComputerSelection == 0){
+                Player_Score++;
+            }
+            if (Player_Score > Computer_Score){
+                return "You Win";
+            }
+            else if(Player_Score < Computer_Score){
+                return "Computer Wins";
+            }
+            else{
+                return "Its A Draw";
+            }
+        }
+        /*Game Loop*/
+
+        //Variable for number of times game should play
+        let max_number_of_iterations = 5;
+        let min_number_of_iterations = 0;
+        let winner = "";
+        while(min_number_of_iterations<max_number_of_iterations){
+            let player_choice = prompt("Enter your choice \"Rock, Paper, or Scissors\"");
+            let computer_choice = computerPlay();
+            winner = playRound(player_choice, computer_choice);
+            min_number_of_iterations++;
+        }
+        console.log(winner);
+    </script>
+</body>
+</html>
